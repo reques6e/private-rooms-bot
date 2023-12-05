@@ -11,6 +11,7 @@ private_control_id = 0 # ID канала для создания панели у
 create_private_chan_id = 0 # ID Voice канала в дискорде
 message_id = 0 # ЧИТАЙТЕ ПОДРОБНЕЕ В FAQ!
 
+# Все эти эмодзи есть в /assest/psd/PrivateRoomIcon.psd
 emoji1 = '<:vip:1180438222082420818>' # передать владельца
 emoji2 = '<:limitededition:1180444076697452544>' # изменить лимит
 emoji3 = '<:lock:1180430104334172220>' # закрыть доступ
