@@ -216,7 +216,7 @@ class Voice(commands.Cog):
         emb.add_field(name='ㅤ', 
                       value=f'{emoji1} — Передать владельца\n{emoji2} — изменить лимит\n{emoji3} — закрыть доступ\n{emoji4} — открыть доступ\n{emoji5} — размутить')
         emb.add_field(name='ㅤ',
-                      value=f'{emoji6} — замутить\n{emoji7} — скрыть/открыть комнату\n{emoji8} — закрыть/открыть доступ\n{emoji9} — изменить название\n{emoji10} — выгнать участника')
+                      value=f'{emoji6} — замутить\n{emoji7} — скрыть/открыть комнату\n{emoji8} — заблокировать/открыть доступ\n{emoji9} — изменить название\n{emoji10} — выгнать участника')
 
         new_ownr = Button(style=nextcord.ButtonStyle.grey,
                         emoji=f'{emoji1}')
@@ -236,13 +236,13 @@ class Voice(commands.Cog):
         hidden = Button(style=nextcord.ButtonStyle.grey,
                         emoji=f'{emoji7}')
         kick_memb = Button(style=nextcord.ButtonStyle.grey,
-                        emoji=f'{emoji8}',
+                        emoji=f'{emoji10}',
                         row=2)
         access = Button(style=nextcord.ButtonStyle.grey,
-                        emoji=f'{emoji9}',
+                        emoji=f'{emoji8}',
                         row=2)
         new_name = Button(style=nextcord.ButtonStyle.grey,
-                        emoji=f'{emoji10}')
+                        emoji=f'{emoji9}')
 
         async def new_ownr_callback(interaction: nextcord.Interaction):
             cursor.execute("SELECT voiceid FROM privates WHERE perms = {}".format(interaction.user.id))
