@@ -5,8 +5,9 @@
 Заходим в `config.py`, и задаём значения переменных:
 ```python
 token = 'your_token_here'
-guild_id = 0
+guild_id = 0  # ID Сервера
 
+category_id = 0 # ID Категории в котором находятся private_control_id и create_private_chan_id
 private_control_id = 0 # ID канала для создания панели управления
 create_private_chan_id = 0 # ID Voice канала в дискорде
 message_id = 0 # ЧИТАЙТЕ ПОДРОБНЕЕ В FAQ!
