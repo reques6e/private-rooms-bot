@@ -1,5 +1,6 @@
 # private-rooms-bot
 <img src='assest/img/Discord_VMraGB9rwp.png'>
+<img src='assest/img/Code_hO1PlcTboF.png'>
 
 # Как настроить бота?
 Заходим в `config.py`, и задаём значения переменных:
