@@ -4,6 +4,7 @@ import sqlite3
 import nextcord
 import datetime
 from config import *
+from loguru import logger
 
 connection = sqlite3.connect('db/pr.db')
 cursor = connection.cursor()
@@ -198,7 +199,7 @@ class Voice(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print("Private Rooms - work")
+        logger.success('Ког Private Rooms был успешно подключен к боту')
         cursor.execute("""CREATE TABLE IF NOT EXISTS privates(
             ownerid BIGINT,
             voicename TEXT,
@@ -208,8 +209,20 @@ class Voice(commands.Cog):
             perms BIGINT);
         """)
         connection.commit()
+
         guild = self.bot.get_guild(guild_id)
+        if guild:
+            category = nextcord.utils.get(guild.categories, id=category_id)
+            if category and isinstance(category, nextcord.CategoryChannel):
+                for channel in guild.voice_channels:
+                    if channel.id != create_private_chan_id:
+                        await channel.delete()
+                        logger.warning('Обнаружил лишний голосовой канал {} ({})'.format(channel.name, channel.id))
+        else:
+            print("Guild not found.")
+    
         strt_send = guild.get_channel(private_control_id)
+
         emb = nextcord.Embed(title='Управление приватными комнатами',
                              description='> Жми следующие кнопки, чтобы настроить свою комнату',
                              color=nextcord.Colour.from_rgb(47, 49, 54))
@@ -530,10 +543,14 @@ class Voice(commands.Cog):
         m = [message async for message in strt_send.history(limit=1)]
         ch_channel = self.bot.get_channel(private_control_id)
         try:
-            message = await ch_channel.fetch_message(create_private_chan_id)
+            message = await ch_channel.fetch_message(message_id)
             await message.edit(embed=emb, view=view)
+
+            logger.success('Сообщение с id {} было успешно изменено.'.format(message_id))
         except:
-            await strt_send.send(embed=emb, view=view)
+            message = await strt_send.send(embed=emb, view=view)
+
+            logger.warning('Сообщение с id {} не было изенено, отправляю новую панель с message id {}'.format(message_id, message.id))
 
 
     @commands.Cog.listener()
@@ -572,10 +589,7 @@ class Voice(commands.Cog):
                 cursor.execute("UPDATE privates SET perms = Null WHERE voiceid = {}".format(private_voice.id))
                 connection.commit()
             
-    # @nextcord.slash_command(name='say', description='Оставить коментарий')
-    # async def sdvsdfsdsdfdsfds(self, interaction: nextcord.Interaction):
-    #     ch = self.bot.get_channel(1180419074472292382)
-    #     await ch.send('Voice')
+    # Девелопер Reques6e666 оставил свой след... 05.04.24
 
 def setup(bot):
     bot.add_cog(Voice(bot))

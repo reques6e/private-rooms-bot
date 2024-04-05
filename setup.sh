@@ -5,7 +5,7 @@ SCRIPT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 SERVICE_FILE="/etc/systemd/system/privateroomsbot.service"
 
 SERVICE_CONTENT="[Unit]
-Description=TicketBot
+Description=PrivateRoomBot
 After=network.target
 
 [Service]
